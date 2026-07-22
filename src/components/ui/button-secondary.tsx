@@ -1,20 +1,25 @@
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
-const Button = ({
+interface SecondaryButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+
+const SecondaryButton = ({
   children,
   className = "",
   ...props
-}: ButtonProps) => {
+}: SecondaryButtonProps) => {
   return (
     <button
       className={`
+        w-full
         h-10
-        bg-primary
+        bg-card
+        border
+        border-border
         py-2.5
         text-sm
         font-medium
-        text-primary-foreground
+        text-foreground
         transition
+        hover:bg-secondary
         hover:opacity-90
         disabled:cursor-not-allowed
         disabled:opacity-50
@@ -27,4 +32,4 @@ const Button = ({
   );
 };
 
-export default Button;
+export default SecondaryButton;
