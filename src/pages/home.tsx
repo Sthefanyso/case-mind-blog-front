@@ -13,6 +13,7 @@ import SecondaryButton from "@/components/ui/button-secondary";
 import { useEffect, useState } from "react";
 import { getArticles } from "@/services/articles";
 import type { Article } from "@/interfaces/article";
+import { Link } from "react-router-dom";
 
 const Home = () => {
 
@@ -85,8 +86,9 @@ const Home = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {featuredArticles.map((article) => (
-            <article
+            <Link
               key={article.id}
+              to={`/article/${article.id}`}
               className={`bg-card border ${
                 article.isHighlighted
                   ? "border-primary"
@@ -147,7 +149,7 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
       </section>
@@ -166,8 +168,9 @@ const Home = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {recentArticles.map((article) => (
-            <article
+            <Link
               key={article.id}
+              to={`/article/${article.id}`}
               className={`bg-card border ${
                 article.isHighlighted
                   ? "border-primary"
@@ -202,7 +205,7 @@ const Home = () => {
                   {article.date}
                 </div>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
       </section>

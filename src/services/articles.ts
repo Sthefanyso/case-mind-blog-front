@@ -5,7 +5,7 @@ export async function getArticles() {
   return response.data;
 }
 
-export async function getArticleById(id: number) {
+export async function getArticleById(id: string) {
   const response = await api.get(`/articles/${id}`);
   return response.data;
 }
