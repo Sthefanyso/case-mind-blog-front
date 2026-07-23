@@ -10,72 +10,32 @@ import {
 import Button from "@/components/ui/button";
 import SecondaryButton from "@/components/ui/button-secondary";
 
-const featuredArticles = [
-  {
-    id: "1",
-    category: "Desenvolvimento Web",
-    date: "4 out 2025",
-    title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in augue ligula. Donec sed eros vel lacus condimentum sollicitudin...",
-    author: "John Doe",
-    readTime: "5 min",
-    views: 123,
-    likes: 1,
-    isHighlighted: false,
-  },
-  {
-    id: "2",
-    category: "Desenvolvimento Web",
-    date: "4 out 2025",
-    title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in augue ligula. Donec sed eros vel lacus condimentum sollicitudin...",
-    author: "John Doe",
-    readTime: "5 min",
-    views: 123,
-    likes: 1,
-    isHighlighted: true,
-  },
-  {
-    id: "3",
-    category: "Desenvolvimento Web",
-    date: "4 out 2025",
-    title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in augue ligula. Donec sed eros vel lacus condimentum sollicitudin...",
-    author: "John Doe",
-    readTime: "5 min",
-    views: 123,
-    likes: 1,
-    isHighlighted: false,
-  },
-];
-
-const recentArticles = [
-  {
-    id: "1",
-    category: "Desenvolvimento Web",
-    date: "4 out 2025",
-    title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in augue ligula. Donec sed eros vel lacus condimentum sollicitudin...",
-    author: "John Doe",
-    isHighlighted: false,
-  },
-  {
-    id: "2",
-    category: "Desenvolvimento Web",
-    date: "4 out 2025",
-    title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in augue ligula. Donec sed eros vel lacus condimentum sollicitudin...",
-    author: "John Doe",
-    isHighlighted: true,
-  },
-];
+import { useEffect, useState } from "react";
+import { getArticles } from "@/services/articles";
+import type { Article } from "@/interfaces/article";
 
 const Home = () => {
+
+   const [articles, setArticles] = useState<Article[]>([]);
+   console.log(articles);
+
+   const featuredArticles = articles;
+   const recentArticles = articles;
+
+
+  useEffect(() => {
+    async function loadArticles() {
+      try {
+        const data = await getArticles();
+        setArticles(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    loadArticles();
+  }, []);
+
   return (
     <main className="flex-1 w-full max-w-[1200px] mx-auto px-6 py-12 space-y-24">
       {/* Hero */}

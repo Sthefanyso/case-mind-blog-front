@@ -1,8 +1,33 @@
 import Input from "@/components/ui/input";
 import Button from "@/components/ui/button";
 import Logo from "@/components/common/logo";
+import { login } from "@/services/auth";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  
+  const navigate = useNavigate();
+
+  async function handleSubmit(event: React.FormEvent) {
+  event.preventDefault();
+
+  try {
+    const data = await login(email, password);
+    localStorage.setItem("token", data.token);
+
+    navigate("/");
+
+    console.log(data);
+
+  } catch (error) {
+    console.error(error);
+  }
+}
+
   return (
     <main className="flex flex-1 items-center justify-center px-4 py-10">
       <div className="w-full max-w-[400px]">
@@ -29,7 +54,7 @@ const Login = () => {
           p-6
           shadow-xl
         ">
-          <form className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
 
             <Input
               label="Email"
@@ -37,6 +62,7 @@ const Login = () => {
               type="email"
               placeholder="exemplo@email.com"
               required
+              onChange={(e) => setEmail(e.target.value)}
             />
 
             <Input
@@ -45,6 +71,7 @@ const Login = () => {
               type="password"
               placeholder="••••••••"
               required
+              onChange={(e) => setPassword(e.target.value)}
               rightElement={
                 <button
                   type="button"
@@ -60,7 +87,7 @@ const Login = () => {
               }
             />
 
-           <Button type="submit">
+           <Button className="w-full" type="submit">
               Entrar
             </Button>
 
